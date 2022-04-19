@@ -1,5 +1,5 @@
 import { Checkbox, IconButton } from '@mui/material';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './EmailList.css';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -12,8 +12,23 @@ import Section from './Section';
 import InboxIcon from '@mui/icons-material/Inbox';
 import PeopleIcon from '@mui/icons-material/People';
 import EmailRow from './EmailRow';
+import { onSnapshot, query, collection, orderBy } from "firebase/firestore";
+import { db } from './firebase';
 
 function EmailList() {
+    const [ emails, setEmails ] = useState([]);
+    useEffect(() => {
+        const q = query(collection(db, 'emails'), orderBy('timestamp', 'desc'));
+        onSnapshot(q, (snapshot) => {
+            setEmails(
+                snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    data: doc.data()
+                }))
+            )
+        }               
+        )     
+    }, [])
     return (
       <div className='emailList'>
           <div className='emailList_settings'>
@@ -60,18 +75,16 @@ function EmailList() {
             />
           </div>
           <div className='emailList_list'>
-            <EmailRow
-              title="Twitch"
-              subject="Hey fellow streamer"
-              description="this is a test description this is a test description this is a test description"
-              time="10pm"
-            />
-            <EmailRow
-              title="Twitch"
-              subject="Hey fellow streamer"
-              description="this is a test description"
-              time="10pm"
-            />
+              {emails?.map(({id, data: {to, subject, message, timestamp}}) => (
+                  <EmailRow
+                    id={id}
+                    key={id}
+                    title={to}
+                    subject={subject}
+                    description={message}
+                    time={new Date(timestamp?.seconds * 1000).toUTCString()}
+                  />
+              ))}
           </div>
       </div>
     )

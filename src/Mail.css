@@ -6,6 +6,7 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid whitesmoke;
+  padding: 10px 0;
 }
 
 .mail_toolsLeft {
@@ -30,6 +31,14 @@
 .mail_bodyHeader > h2 {
   font-weight: 400;
   margin: 0 20px 0 0;
+}
+
+.mail_bodyHeader > p {
+  margin-left: 10px;
+}
+
+.mail_message {
+  margin-top: 30px;
 }
 
 .mail_message > p {

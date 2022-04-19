@@ -22,6 +22,7 @@
   flex: 0.8;
   align-items: center;
   font-size: 13px;
+  margin-left: 20px;
 }
 
 .emailRow_message > h4 {
@@ -41,6 +42,7 @@
   padding-right: 15px;
   font-size: 9px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .emailRow_description {

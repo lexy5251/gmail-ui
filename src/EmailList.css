@@ -11,12 +11,14 @@
     border-bottom: 1px solid whitesmoke;
     z-index: 999;
     padding: 10px 0;
+    background: white;
 }
 
 .emailList_sections {
     display: flex;
     position: sticky;
-    top: 0;
+    top: 60px;
     border-bottom: 1px solid whitesmoke;
     z-index: 999;
+    background: white;
 }
